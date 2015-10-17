@@ -2,7 +2,9 @@
 
 ## 
 
-## Loading and preprocessing the data
+## Data Processing
+
+### Loading and preprocessing the data
 
 ```{r loaddata}
 if(!exists("activitydata")){
@@ -13,7 +15,7 @@ if(!exists("activitydata")){
 }
 ```
 
-## What is mean total number of steps taken per day?
+## Results
 
 #### 1. Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?
 
