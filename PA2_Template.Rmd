@@ -1,0 +1,23 @@
+# Reproducible Research: Peer Assessment 2
+
+## 
+
+## Loading and preprocessing the data
+
+```{r loaddata}
+if(!exists("activitydata")){
+  unzip(zipfile="activity.zip")
+  activitydata <- read.csv("./activity.csv", row.names = NULL, nrows=17568, 
+                      check.names=F, stringsAsFactors=F, header=T, sep=',', 
+                      na.strings="NA", comment.char="", quote='\"')
+}
+```
+
+## What is mean total number of steps taken per day?
+
+#### 1. Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?
+
+
+
+
+#### 2. Across the United States, which types of events have the greatest economic consequences?
