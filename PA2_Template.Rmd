@@ -12,14 +12,8 @@
 
 ```{r loaddata}
 if(!exists("stormdata")){
-  bzfile("file.csv.bz2")
-  stormdata <- read.csv("./repdata-data-StormData.csv", row.names = NULL, nrows=902297, 
-                      check.names=F, stringsAsFactors=F, header=T, sep=',', 
-                      na.strings="NA", comment.char="", quote='\"')
+  stormdata <- read.csv("./repdata-data-StormData.csv.bz2", row.names = NULL, nrows=902297, check.names=F,                 stringsAsFactors=F, header=T, sep=',', na.strings="NA", comment.char="", quote='\"')
 }
-
-readcsvbz2file <- read.csv(bzfile("file.csv.bz2"))
-
 ```
 
 ## Results
