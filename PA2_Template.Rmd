@@ -1,8 +1,17 @@
 ## Reproducible Research: Peer Assessment 2
 
-# Header
+# Analysis of Health and Economic Impacts of Severe Weather Events Across the United States
+
+By Sagi Greenstine (sagigr@gmail.com)
+Date: 26-10-2015
+
+## Assignment
+
+The basic goal of this assignment is to explore the NOAA Storm Database and answer some basic questions about severe weather events. You must use the database to answer the questions below and show the code for your entire analysis. Your analysis can consist of tables, figures, or other summaries. You may use any R package you want to support your analysis.
 
 ## Synopsis
+
+
 
 
 
@@ -12,7 +21,7 @@
 
 ```{r loaddata}
 if(!exists("stormdata")){
-  stormdata <- read.csv("./repdata-data-StormData.csv.bz2", row.names = NULL, nrows=902297, check.names=F,                     stringsAsFactors=F, header=T, sep=',', na.strings="NA", comment.char="", quote='\"')
+  stormdata <- read.csv("./repdata-data-StormData.csv.bz2", row.names = NULL, nrows=902297, check.names=F,           stringsAsFactors=F, header=T, sep=',', na.strings="NA", comment.char="", quote='\"')
 }
 ```
 
