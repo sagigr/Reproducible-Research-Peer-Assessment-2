@@ -2,8 +2,8 @@
 
 # Analysis of Health and Economic Impacts of Severe Weather Events Across the United States
 
-By Sagi Greenstine (sagigr@gmail.com)
-Date: 26-10-2015
+#### By Sagi Greenstine (sagigr@gmail.com)
+#### Date: 26-10-2015
 
 ## Assignment
 
@@ -11,7 +11,13 @@ The basic goal of this assignment is to explore the NOAA Storm Database and answ
 
 ## Synopsis
 
+This analysis based on the U.S. National Oceanic and Atmospheric Administration's (NOAA) Storm Database, that contains the events starting from 1950 until November 2011. 
+The NOAA Storm Database tracks characteristics of major storms and weather events in the United States, including when and where they occur, as well as estimates of any fatalities, injuries, and property damage.
+This data analysis project tries to answer the following questions:
+1. Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?
+2. Across the United States, which types of events have the greatest economic consequences?
 
+The conclusion of this analysis is
 
 
 
@@ -24,6 +30,8 @@ if(!exists("stormdata")){
   stormdata <- read.csv("./repdata-data-StormData.csv.bz2", row.names = NULL, nrows=902297, check.names=F,           stringsAsFactors=F, header=T, sep=',', na.strings="NA", comment.char="", quote='\"')
 }
 ```
+
+
 
 ## Results
 
