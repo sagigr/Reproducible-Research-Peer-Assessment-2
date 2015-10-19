@@ -31,7 +31,15 @@ if(!exists("stormdata")){
 }
 ```
 
+```{r strdataset, results="hide""}
+str(stormdata)
+```
 
+This dataset has 902297 observations of  37 variables.
+
+Also, one of the important parameteres is event type (EVTYPE variable). The values of event types don't have a specific format.
+
+I have to clean and tidy the data before I answer the questions.
 
 ## Results
 
