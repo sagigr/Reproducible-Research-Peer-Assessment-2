@@ -41,6 +41,17 @@ Also, one of the important parameteres is event type (EVTYPE variable). The valu
 
 I have to clean and tidy the data before I answer the questions.
 
+Let see a number of unique values of EVTYPE in raw dataset:
+
+```{r uniquerawdata}
+length(unique(stormdata$EVTYPE))
+```
+
+There are 985 unique values of event types. Let's try to reduce this amount by means of the following operations:
+
+1. 
+
+
 ## Results
 
 #### 1. Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?
