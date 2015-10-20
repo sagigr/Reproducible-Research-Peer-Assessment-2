@@ -49,8 +49,20 @@ length(unique(stormdata$EVTYPE))
 
 There are 985 unique values of event types. Let's try to reduce this amount by means of the following operations:
 
-1. 
+1. Bringing all the values of EVTYPE to the lowercase format:
 
+```{r lowercase}
+tidyevtype <- tolower(stormdata$EVTYPE)
+```
+
+2. Replacement of punctuation, control and blank characters with the space
+
+```{r repcharacters}
+tidyevtype <- gsub("[[:blank:][:punct:][:cntrl:]+]", " ", tidyevtype)
+length(unique(tidyevtype))
+```
+
+Now, there are 874 unique values of event types.
 
 ## Results
 
