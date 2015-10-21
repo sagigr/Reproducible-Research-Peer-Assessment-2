@@ -87,15 +87,15 @@ reducedStormData[grepl("cold|cool|ice|icy|frost|freeze|snow|winter|wintry|winter
                          reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Cold"
 reducedStormData[grepl("flood|surf|blow-out|swells|fld|dam break", 
                          reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Flood"
-  reducedStormData[grepl("seas|high water|tide|tsunami|wave|current|marine|drowning", 
+reducedStormData[grepl("seas|high water|tide|tsunami|wave|current|marine|drowning", 
                          reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Waves"
-  reducedStormData[grepl("dust|saharan", 
+reducedStormData[grepl("dust|saharan", 
                          reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Dust"  
-  reducedStormData[grepl("tstm|thunderstorm|lightning", 
+reducedStormData[grepl("tstm|thunderstorm|lightning", 
                          reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Thunderstorms"
-  reducedStormData[grepl("tornado|spout|funnel|whirlwind", 
+reducedStormData[grepl("tornado|spout|funnel|whirlwind", 
                          reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Tornado"
-  reducedStormData[grepl("fire|smoke|volcanic", 
+reducedStormData[grepl("fire|smoke|volcanic", 
                          reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Fire"
 
   # remove uncategorized records (damageSource == NA) & cast as factor
@@ -105,6 +105,8 @@ reducedStormData[grepl("flood|surf|blow-out|swells|fld|dam break",
   # clean reducedStormData
   reducedStormData$EVTYPE <- NULL
 
+  stormdata <- cbind(stormdata, damagetype)
+  
 ```
 
 ## Results
