@@ -73,10 +73,11 @@ stormdata$EVTYPE <- tidyevtype
 3. Reducing of unique similar values of event types to similar instances:
 
 ```{r similarevtype}
+reducedStormData$damageSource <- NA
 damagetype <- stormdata$EVTYPE
 
 damagetype[grepl("precipitation|rain|hail|drizzle|wet|percip|burst|depression|fog|wall cloud", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damagetype"] <- "Precipitations"
+                         stormdata$EVTYPE), "damagetype"] <- "Precipitations"
 reducedStormData[grepl("wind|storm|wnd|hurricane|typhoon", 
                          reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Winds"
 reducedStormData[grepl("slide|erosion|slump", 
