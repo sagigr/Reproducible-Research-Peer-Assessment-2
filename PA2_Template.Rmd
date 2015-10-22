@@ -27,7 +27,7 @@ The conclusion of this analysis is...
 
 ```{r loaddata}
 if(!exists("stormdata")){
-  stormdata <- read.csv("./repdata-data-StormData.csv.bz2", row.names = NULL, nrows=902297, check.names=F,           stringsAsFactors=F, header=T, sep=',', na.strings="NA", comment.char="", quote='\"')
+  stormdata <- read.csv("./repdata-data-StormData.csv.bz2", row.names = NULL, nrows=902297, check.names=F, stringsAsFactors=F, header=T, sep=',', na.strings="NA", comment.char="", quote='\"')
 }
 ```
 
@@ -73,41 +73,19 @@ stormdata$EVTYPE <- tidyevtype
 3. Reducing of unique similar values of event types to similar instances:
 
 ```{r similarevtype}
-reducedStormData$damageSource <- NA
 damagetype <- stormdata$EVTYPE
-
-damagetype[grepl("precipitation|rain|hail|drizzle|wet|percip|burst|depression|fog|wall cloud", 
-                         stormdata$EVTYPE), "damagetype"] <- "Precipitations"
-reducedStormData[grepl("wind|storm|wnd|hurricane|typhoon", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Winds"
-reducedStormData[grepl("slide|erosion|slump", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Landslides"
-reducedStormData[grepl("warmth|warm|heat|dry|hot|drought|thermia|temperature record|record temperature|record high", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Heat"
-reducedStormData[grepl("cold|cool|ice|icy|frost|freeze|snow|winter|wintry|wintery|blizzard|chill|freezing|avalanche|glaze|sleet", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Cold"
-reducedStormData[grepl("flood|surf|blow-out|swells|fld|dam break", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Flood"
-reducedStormData[grepl("seas|high water|tide|tsunami|wave|current|marine|drowning", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Waves"
-reducedStormData[grepl("dust|saharan", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Dust"  
-reducedStormData[grepl("tstm|thunderstorm|lightning", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Thunderstorms"
-reducedStormData[grepl("tornado|spout|funnel|whirlwind", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Tornado"
-reducedStormData[grepl("fire|smoke|volcanic", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Fire"
-
-  # remove uncategorized records (damageSource == NA) & cast as factor
-  reducedStormData <- reducedStormData[complete.cases(reducedStormData[, "damageSource"]), ]
-  reducedStormData$damageSource <- as.factor(reducedStormData$damageSource)
-
-  # clean reducedStormData
-  reducedStormData$EVTYPE <- NULL
-
-  stormdata <- cbind(stormdata, damagetype)
-  
+damagetype <- gsub("precipitation|rain|hail|drizzle|wet|percip|burst|depression|fog|wall cloud", "Precipitations", damagetype)
+damagetype <- gsub("wind|storm|wnd|hurricane|typhoon", "Winds", damagetype)
+damagetype <- gsub("slide|erosion|slump", "Landslides", damagetype)
+damagetype <- gsub("warmth|warm|heat|dry|hot|drought|thermia|temperature record|record temperature|record high", "Heat", damagetype)
+damagetype <- gsub("cold|cool|ice|icy|frost|freeze|snow|winter|wintry|wintery|blizzard|chill|freezing|avalanche|glaze|sleet", "Cold", damagetype)
+damagetype <- gsub("flood|surf|blow-out|swells|fld|dam break", "Flood", damagetype)
+damagetype <- gsub("seas|high water|tide|tsunami|wave|current|marine|drowning", "Waves", damagetype)
+damagetype <- gsub("dust|saharan", "Dust", damagetype)
+damagetype <- gsub("tstm|thunderstorm|lightning", "Thunderstorms", damagetype)
+damagetype <- gsub("tornado|spout|funnel|whirlwind", "Tornado", damagetype)
+damagetype <- gsub("fire|smoke|volcanic", "Fire", damagetype)
+stormdata <- cbind(stormdata, damagetype)
 ```
 
 ## Results
