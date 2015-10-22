@@ -74,9 +74,10 @@ stormdata$EVTYPE <- tidyevtype
 
 ```{r similarevtype}
 reducedStormData$damageSource <- NA
+damagetype <- stormdata$EVTYPE
 
-reducedStormData[grepl("precipitation|rain|hail|drizzle|wet|percip|burst|depression|fog|wall cloud", 
-                         reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Precipitations"
+damagetype[grepl("precipitation|rain|hail|drizzle|wet|percip|burst|depression|fog|wall cloud", 
+                         reducedStormData$EVTYPE, ignore.case = TRUE), "damagetype"] <- "Precipitations"
 reducedStormData[grepl("wind|storm|wnd|hurricane|typhoon", 
                          reducedStormData$EVTYPE, ignore.case = TRUE), "damageSource"] <- "Winds"
 reducedStormData[grepl("slide|erosion|slump", 
@@ -118,4 +119,3 @@ reducedStormData[grepl("fire|smoke|volcanic",
 
 #### 2. Across the United States, which types of events have the greatest economic consequences?
 
- 
