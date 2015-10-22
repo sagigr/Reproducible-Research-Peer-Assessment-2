@@ -74,10 +74,10 @@ stormdata$EVTYPE <- tidyevtype
 
 ```{r similarevtype}
 damagetype <- stormdata$EVTYPE
-damagetype <- gsub("precipitation|rain|hail|drizzle|wet|percip|burst|depression|fog|wall cloud", "Precipitations", damagetype)
-damagetype <- gsub("wind|storm|wnd|hurricane|typhoon", "Winds", damagetype)
-damagetype <- gsub("slide|erosion|slump", "Landslides", damagetype)
-damagetype <- gsub("warmth|warm|heat|dry|hot|drought|thermia|temperature record|record temperature|record high", "Heat", damagetype)
+damagetype <- gsub("burst|depression|drizzle|fog|hail|percip|precipitation|rain|wall cloud|wet", "Precipitations", damagetype)
+damagetype <- gsub("hurricane|storm|typhoon|wind|wnd", "Winds", damagetype)
+damagetype <- gsub("erosion|slide|slump", "Landslides", damagetype)
+damagetype <- gsub("dry|drought|heat|hot|record high|record temperature|temperature record|thermia|warmth|warm", "Heat", damagetype)
 damagetype <- gsub("cold|cool|ice|icy|frost|freeze|snow|winter|wintry|wintery|blizzard|chill|freezing|avalanche|glaze|sleet", "Cold", damagetype)
 damagetype <- gsub("flood|surf|blow-out|swells|fld|dam break", "Flood", damagetype)
 damagetype <- gsub("seas|high water|tide|tsunami|wave|current|marine|drowning", "Waves", damagetype)
