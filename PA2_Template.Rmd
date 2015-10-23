@@ -88,11 +88,51 @@ damagetype <- gsub("fire|smoke|volcanic", "Fire", damagetype)
 stormdata <- cbind(stormdata, damagetype)
 ```
 
+4. Now I need to convert char. variables PROPDMGEXP (property damage extension) and CROPDMGEXP (crop damage extension) into the corresponding numeric values, for example, "h" = 100, "k" = 1,000, "M" = 1,000,000. For these needs, I'll use the following function:
+
+```{r extconvert}
+extconvert <- function(x) {
+                  if (x %in% c('h', 'H')) 
+                      x <- 2 
+                   else  if (x %in% c('k', 'K')) 
+                      x <- 3 
+                   else  if (x %in% c('M', 'm')) 
+                      x <- 6 
+                   else  if (x %in% c('B', 'b')) 
+                      x <- 9
+                   else  if (x == "" || x == " ")
+                      x <- 0
+                   else  
+                      x <- NA
+                      x
+}                 
+```
+
+Converting the variables and computing the absolute values of damages:
+
+```{r absdamages}
+abspropdmg <- sapply(stormdata$PROPDMGEXP, FUN=extconvert)
+stormdata$abspropdamage <- stormdata$PROPDMG * (10 ** abspropdmg)
+
+abscropdmg <- sapply(stormdata$CROPDMGEXP, FUN=extconvert)
+stormdata$abscropdamage <- stormdata$CROPDMG * (10 ** abscropdmg)
+```
+
 ## Results
+
+Now, after the loading and preprocessing the data, let's answer on following questions.
 
 #### 1. Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?
 
+Let's find the most harmful event types for population health, across the US.
 
+```{r }
+library(plyr)
+casualties <- ddply(stormdata, .(damagetype), summarize, fatalities = sum(FATALITIES), injuries = sum(INJURIES))
+
+# Find events that caused most death and injury
+fatal_events <- head(casualties[order(casualties$fatalities, decreasing = T), ], 10)
+injury_events <- head(casualties[order(casualties$injuries, decreasing = T), ], 10)
 
 
 #### 2. Across the United States, which types of events have the greatest economic consequences?
