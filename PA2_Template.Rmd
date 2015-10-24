@@ -113,7 +113,6 @@ Converting the variables and computing the absolute values of damages:
 ```{r absdamages}
 abspropdmg <- sapply(stormdata$PROPDMGEXP, FUN=extconvert)
 stormdata$abspropdamage <- stormdata$PROPDMG * (10 ** abspropdmg)
-
 abscropdmg <- sapply(stormdata$CROPDMGEXP, FUN=extconvert)
 stormdata$abscropdamage <- stormdata$CROPDMG * (10 ** abscropdmg)
 ```
@@ -128,12 +127,36 @@ Let's find the most harmful event types for population health, across the US.
 
 ```{r }
 library(plyr)
-casualties <- ddply(stormdata, .(damagetype), summarize, fatalities = sum(FATALITIES), injuries = sum(INJURIES))
+healthdmg <- ddply(stormdata, .(damagetype), summarize, sumfatality = sum(FATALITIES), suminjury = sum(INJURIES))
+fatalityev <- head(healthdmg[order(healthdmg$sumfatality, decreasing = T), ], 10)
+injuryev <- head(healthdmg[order(healthdmg$suminjury, decreasing = T), ], 10)
+```
 
-# Find events that caused most death and injury
-fatal_events <- head(casualties[order(casualties$fatalities, decreasing = T), ], 10)
-injury_events <- head(casualties[order(casualties$injuries, decreasing = T), ], 10)
+Top 10 event types that caused largest number of fatalities:
 
+```{r topfatalities}
+fatalityev[, c("damagetype", "sumfatality")]
+```
+
+Top 10 event types that caused largest number of injuries:
+
+```{r topinjuries}
+injuryev[, c("damagetype", "suminjury")]
+```
+
+Now I want to show the most harmful types of events to public health through the following chart:
+
+```{r healthplot}
+library(ggplot2)
+library(gridExtra)
+fatalplot <- ggplot(data=fatalityev, aes(x=reorder(damagetype, sumfatality), y=sumfatality)) + geom_bar(stat="identity") +
+coord_flip() + ylab("Total deaths") + xlab("Event Type") + theme(legend.position="none")
+
+injuryplot <- ggplot(data=injuryev, aes(x=reorder(damagetype, suminjury), y=suminjury)) + geom_bar(stat="identity") +
+coord_flip() + ylab("Total injuries") + xlab("Event Type") + theme(legend.position="none")
+
+grid.arrange(fatalplot, injuryplot)
+```
 
 #### 2. Across the United States, which types of events have the greatest economic consequences?
 
