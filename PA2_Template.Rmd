@@ -2,8 +2,7 @@
 
 # Analysis of Health and Economic Impacts of Severe Weather Events Across the United States
 
-By Sagi Greenstine (sagigr@gmail.com)
-Date: 26-10-2015
+Sagi Greenstine
 
 ## Assignment
 
