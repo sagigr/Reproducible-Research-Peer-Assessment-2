@@ -16,9 +16,9 @@ This data analysis project tries to answer the following questions:
 1. Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?
 2. Across the United States, which types of events have the greatest economic consequences?
 
-The conclusion of this analysis is...
-
-
+The conclusions of this analysis are:
+1. The most harmful events to human health in terms of fatality and injuries are: tornado, excessive heat, flash flood, thunderstorms, cold etc.
+2. The types of events which have the greatest economic consequences in terms of property and crop damages are: various kinds of strong winds, floods, fires, relatively crop damages is also cold. etc.
 
 ## Data Processing
 
@@ -127,7 +127,7 @@ Now, after the loading and preprocessing the data, let's answer on following que
 
 Let's find the most harmful event types for population health, across the US.
 
-```{r }
+```{r healthdamage}
 library(plyr)
 healthdmg <- ddply(stormdata, .(damagetype), summarize, sumfatality = sum(FATALITIES), suminjury = sum(INJURIES))
 fatalityev <- head(healthdmg[order(healthdmg$sumfatality, decreasing = T), ], 10)
@@ -160,5 +160,39 @@ coord_flip() + ylab("Total injuries") + xlab("Event Type") + theme(legend.positi
 grid.arrange(fatalplot, injuryplot)
 ```
 
+Based on the above data samples and graphs, you can see that the most harmful events to human health in terms of fatality and injuries are: tornado, excessive heat, flash flood, thunderstorms, cold etc.
+
 #### 2. Across the United States, which types of events have the greatest economic consequences?
 
+Let's see,  which types of events have the greatest economic consequences, across the US, in terms of property and corp damages.
+
+```{r economicdamage}
+economicdmg <- ddply(stormdata, .(damagetype), summarize, sumpropdamage = sum(abspropdamage), sumcropdamage = sum(abscropdamage))
+propertydmg <- head(economicdmg[order(economicdmg$sumpropdamage, decreasing = T), ], 10)
+cropdmg <- head(economicdmg[order(economicdmg$sumcropdamage, decreasing = T), ], 10)
+```
+
+Top 10 event types that caused largest property damage:
+
+```{r toppropertydmg}
+propertydmg[, c("damagetype", "sumpropdamage")]
+```
+
+Top 10 event types that caused largest crop damage:
+
+```{r topcropdmg}
+cropdmg[, c("damagetype", "sumcropdamage")]
+```
+
+Now, let's see the event types that have the greatest economic consequences through the following chart:
+
+```{r economicplot}
+propdmgplot <- ggplot(data=propertydmg, aes(x=reorder(damagetype, sumpropdamage), y=sumpropdamage)) + geom_bar(stat="identity") + coord_flip() +     ylab("Total property damage (in USD)") + xlab("Event Type") + theme(legend.position="none")
+
+cropdmgplot <- ggplot(data=cropdmg, aes(x=reorder(damagetype, sumcropdamage), y=sumcropdamage)) + geom_bar(stat="identity") + coord_flip() + 
+xlab("Event type") + ylab("Total crop damage (in USD)") + theme(legend.position="none")
+
+grid.arrange(propdmgplot, cropdmgplot)
+```
+
+Based on the above data samples and graphs, you can see that the types of events which have the greatest economic consequences in terms of property and crop damages are: various kinds of strong winds, floods, fires, relatively crop damages is also cold. etc.
