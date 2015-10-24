@@ -85,7 +85,10 @@ damagetype <- gsub("lightning|thunderstorm|tstm", "Thunderstorms", damagetype)
 damagetype <- gsub("funnel|tornado|spout|whirlwind", "Tornado", damagetype)
 damagetype <- gsub("fire|smoke|volcanic", "Fire", damagetype)
 stormdata <- cbind(stormdata, damagetype)
+length(unique(damagetype))
 ```
+
+Now, there are 774 unique values of event types.
 
 4. Now I need to convert char. variables PROPDMGEXP (property damage extension) and CROPDMGEXP (crop damage extension) into the corresponding numeric values, for example, "h" = 100, "k" = 1,000, "M" = 1,000,000. For these needs, I'll use the following function:
 
